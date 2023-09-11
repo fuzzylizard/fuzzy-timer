@@ -1,6 +1,6 @@
-# Ensemble Programming Timer
+# Fuzzy Timer
 
-The Ensemble Programming Timer is a single page app that provides a timer for groups that wish to do ensemble programming. The app allows the facilitator to enter participant's names and select the number of minutes for the timer (from 5-12 minutes). Once the timer finishes counting down, the facilitator can press the switch button and the app will shuffle participants through the 3 positions. This ensures that everyone gets a chance to be the Navigator, the Typist, and Co-Navigator.
+Simple online countdown timer
 
 ## Available Scripts
 
