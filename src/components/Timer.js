@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import useSound from 'use-sound';
 import switchSfx from '../sound/magic-mallet-6262.mp3';
-import { Grid, Button, Tooltip, Typography } from "@mui/material";
+import { Grid, Button, Tooltip, Typography, ButtonGroup } from "@mui/material";
 import ReplayIcon from "@mui/icons-material/Replay";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
@@ -40,18 +40,18 @@ export default function Timer() {
     <>
       <Grid item xs={12}>
         <div style={ {textAlign: "center", marginTop: "2rem"} }>
+          <ButtonGroup variant="outlined">
           { defaultTimes.map((time) => {
-              return (
-              <Button aria-label="pause"
-                    size="large"
-                    key={time}
-                    variant="outlined"
-                    onClick={() => setTimerMinutes(time)}
-                    sx={ {color: "#F2617A", borderColor: "#F2617A" }}
+            return (
+              <Button size="large"
+                      key={time}
+                      onClick={() => setTimerMinutes(time)}
+                      sx={ {color: "#F2617A", borderColor: "#F2617A" }}
               >
                 {time}
               </Button>
           )}) }
+          </ButtonGroup>
         </div>
       </Grid>
       <Grid item xs={12}>
@@ -72,27 +72,41 @@ export default function Timer() {
                     size="large"
                     onClick={handlePlay}
                     startIcon={<PlayArrowIcon fontSize="inherit" />}
-                    sx={ {background: "#F2617A", color: "#EDF1F3", borderRadius: 50} }
+                    sx={ [{background: "#F2617A", color: "#EDF1F3", borderRadius: 50, marginX: 1} , (theme) => ({
+                      '&:hover': {
+                        backgroundColor: "#EDF1F3", color: "#F2617A"
+                      }
+                    })] }
             >
               Play
             </Button>
           </Tooltip>
           <Tooltip title="Pause timer" arrow>
             <Button aria-label="pause"
+                    variant="contained"
                     size="large"
                     onClick={handlePause}
                     startIcon={<PauseIcon fontSize="inherit" />}
-                    sx={ {background: "#F2617A", color: "#EDF1F3", borderRadius: 50, marginX: 2} }
+                    sx={ [{background: "#F2617A", color: "#EDF1F3", borderRadius: 50, marginX: 1} , (theme) => ({
+                      '&:hover': {
+                        backgroundColor: "#EDF1F3", color: "#F2617A"
+                      }
+                    })] }
             >
               Pause
             </Button>
           </Tooltip>
           <Tooltip title="Reset the timer and start" arrow>
             <Button aria-label="replay"
+                    variant="contained"
                     size="large"
                     onClick={handleStart}
                     startIcon={<ReplayIcon fontSize="inherit" />}
-                    sx={ {background: "#F2617A", color: "#EDF1F3", borderRadius: 50} }
+                    sx={ [{background: "#F2617A", color: "#EDF1F3", borderRadius: 50, marginX: 1} , (theme) => ({
+                      '&:hover': {
+                        backgroundColor: "#EDF1F3", color: "#F2617A"
+                      }
+                    })] }
             >
               Reset
             </Button>
