@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import useSound from 'use-sound';
 import switchSfx from '../sound/magic-mallet-6262.mp3';
-import { Grid, IconButton, Tooltip, Typography } from "@mui/material";
+import { Grid, Button, Tooltip, Typography } from "@mui/material";
 import ReplayIcon from "@mui/icons-material/Replay";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
@@ -10,20 +10,17 @@ import Countdown, { zeroPad } from "react-countdown";
 const SECONDS = 1000;
 const MINUTES = 60 * SECONDS;
 
-export default function Timer({ handleNext, tMinutes }) {
-  const [timerMinutes, setTimerMinutes] = useState(8);
-
-  useEffect(() => {
-    setTimerMinutes(tMinutes);
-  }, [tMinutes])
+export default function Timer() {
+  const [timerMinutes, setTimerMinutes] = useState(10);
 
   const clockRef = useRef();
 
   const [play] = useSound(switchSfx);
 
+  const defaultTimes = [5,6,10,15,20]
+
   function handleStart() {
     clockRef.current.stop();
-    handleNext();
     clockRef.current.start();
   }
 
@@ -42,7 +39,23 @@ export default function Timer({ handleNext, tMinutes }) {
   return (
     <>
       <Grid item xs={12}>
-        <Typography variant="body1" fontSize="8rem" textAlign="center">
+        <div style={ {textAlign: "center", marginTop: "2rem"} }>
+          { defaultTimes.map((time) => {
+              return (
+              <Button aria-label="pause"
+                    size="large"
+                    key={time}
+                    variant="outlined"
+                    onClick={() => setTimerMinutes(time)}
+                    sx={ {color: "#F2617A", borderColor: "#F2617A" }}
+              >
+                {time}
+              </Button>
+          )}) }
+        </div>
+      </Grid>
+      <Grid item xs={12}>
+        <Typography variant="body1" fontSize="35rem" textAlign="center" color="#EDF1F3" sx={{marginTop: -20}}>
           <Countdown date={Date.now() + timerMinutes * MINUTES}
                      ref={clockRef}
                      autoStart={false}
@@ -52,21 +65,37 @@ export default function Timer({ handleNext, tMinutes }) {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="body1" textAlign="center" marginTop="-50px">
-          <Tooltip title="Start timer without rotating roles" arrow>
-            <IconButton aria-label="play" size="large" onClick={handlePlay}>
-              <PlayArrowIcon fontSize="inherit" />
-            </IconButton>
+        <Typography variant="body1" textAlign="center" marginTop="-50px" color="#F2617A" sx={{marginTop: -15}}>
+          <Tooltip title="Start timer" arrow>
+            <Button aria-label="play"
+                    variant="contained"
+                    size="large"
+                    onClick={handlePlay}
+                    startIcon={<PlayArrowIcon fontSize="inherit" />}
+                    sx={ {background: "#F2617A", color: "#EDF1F3", borderRadius: 50} }
+            >
+              Play
+            </Button>
           </Tooltip>
           <Tooltip title="Pause timer" arrow>
-            <IconButton aria-label="pause" size="large" onClick={handlePause}>
-              <PauseIcon fontSize="inherit" />
-            </IconButton>
+            <Button aria-label="pause"
+                    size="large"
+                    onClick={handlePause}
+                    startIcon={<PauseIcon fontSize="inherit" />}
+                    sx={ {background: "#F2617A", color: "#EDF1F3", borderRadius: 50, marginX: 2} }
+            >
+              Pause
+            </Button>
           </Tooltip>
-          <Tooltip title="Reset the timer and rotate participant roles" arrow>
-            <IconButton aria-label="replay" size="large" onClick={handleStart}>
-              <ReplayIcon fontSize="inherit" />
-            </IconButton>
+          <Tooltip title="Reset the timer and start" arrow>
+            <Button aria-label="replay"
+                    size="large"
+                    onClick={handleStart}
+                    startIcon={<ReplayIcon fontSize="inherit" />}
+                    sx={ {background: "#F2617A", color: "#EDF1F3", borderRadius: 50} }
+            >
+              Reset
+            </Button>
           </Tooltip>
         </Typography>
       </Grid>
