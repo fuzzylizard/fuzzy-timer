@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
 import useSound from 'use-sound';
 import switchSfx from '../sound/magic-mallet-6262.mp3';
-import { Grid, Button, Tooltip, Typography, ButtonGroup } from "@mui/material";
+import { Grid, Button, Typography, ButtonGroup } from "@mui/material";
 import ReplayIcon from "@mui/icons-material/Replay";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
 import Countdown, { zeroPad } from "react-countdown";
+import TimerButton from "./TimerButton";
+
 
 const SECONDS = 1000;
 const MINUTES = 60 * SECONDS;
@@ -17,7 +19,10 @@ export default function Timer() {
 
   const [play] = useSound(switchSfx);
 
-  const defaultTimes = [5,6,10,15,20]
+  const defaultTimes = [5,6,10,15,20];
+
+  const pink = "#F2617A";
+  const white = "#EDF1F3";
 
   function handleStart() {
     clockRef.current.stop();
@@ -46,7 +51,7 @@ export default function Timer() {
               <Button size="large"
                       key={time}
                       onClick={() => setTimerMinutes(time)}
-                      sx={ {color: "#F2617A", borderColor: "#F2617A" }}
+                      sx={ {color: pink, borderColor: pink }}
               >
                 {time}
               </Button>
@@ -55,7 +60,7 @@ export default function Timer() {
         </div>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="body1" fontSize="35rem" textAlign="center" color="#EDF1F3" sx={{marginTop: -20}}>
+        <Typography variant="body1" fontSize="35rem" textAlign="center" color={white} sx={{marginTop: -20}}>
           <Countdown date={Date.now() + timerMinutes * MINUTES}
                      ref={clockRef}
                      autoStart={false}
@@ -65,52 +70,12 @@ export default function Timer() {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="body1" textAlign="center" marginTop="-50px" color="#F2617A" sx={{marginTop: -15}}>
-          <Tooltip title="Start timer" arrow>
-            <Button aria-label="play"
-                    variant="contained"
-                    size="large"
-                    onClick={handlePlay}
-                    startIcon={<PlayArrowIcon fontSize="inherit" />}
-                    sx={ [{background: "#F2617A", color: "#EDF1F3", borderRadius: 50, marginX: 1} , (theme) => ({
-                      '&:hover': {
-                        backgroundColor: "#EDF1F3", color: "#F2617A"
-                      }
-                    })] }
-            >
-              Play
-            </Button>
-          </Tooltip>
-          <Tooltip title="Pause timer" arrow>
-            <Button aria-label="pause"
-                    variant="contained"
-                    size="large"
-                    onClick={handlePause}
-                    startIcon={<PauseIcon fontSize="inherit" />}
-                    sx={ [{background: "#F2617A", color: "#EDF1F3", borderRadius: 50, marginX: 1} , (theme) => ({
-                      '&:hover': {
-                        backgroundColor: "#EDF1F3", color: "#F2617A"
-                      }
-                    })] }
-            >
-              Pause
-            </Button>
-          </Tooltip>
-          <Tooltip title="Reset the timer and start" arrow>
-            <Button aria-label="replay"
-                    variant="contained"
-                    size="large"
-                    onClick={handleStart}
-                    startIcon={<ReplayIcon fontSize="inherit" />}
-                    sx={ [{background: "#F2617A", color: "#EDF1F3", borderRadius: 50, marginX: 1} , (theme) => ({
-                      '&:hover': {
-                        backgroundColor: "#EDF1F3", color: "#F2617A"
-                      }
-                    })] }
-            >
-              Reset
-            </Button>
-          </Tooltip>
+        <Typography variant="body1" textAlign="center" marginTop="-50px" color={pink} sx={{marginTop: -15}}>
+
+          <TimerButton title="Start timer" ariaLabel="play" buttonText="Play" startIcon={<PlayArrowIcon fontSize="inherit" />} handleClick={handlePlay} />
+          <TimerButton title="Pause timer" ariaLabel="pause" buttonText="Pause" startIcon={<PauseIcon fontSize="inherit" />} handleClick={handlePause} />
+          <TimerButton title="Reset timer" ariaLabel="reset" buttonText="Reset" startIcon={<ReplayIcon fontSize="inherit" />} handleClick={handleStart} />
+          
         </Typography>
       </Grid>
     </>
