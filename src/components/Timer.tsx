@@ -72,9 +72,9 @@ export default function Timer() {
       <Grid item xs={12}>
         <Typography variant="body1" textAlign="center" marginTop="-50px" color={pink} sx={{marginTop: -15}}>
 
-          <TimerButton title="Start timer" ariaLabel="play" buttonText="Play" startIcon={<PlayArrowIcon fontSize="inherit" />} handleClick={handlePlay} />
-          <TimerButton title="Pause timer" ariaLabel="pause" buttonText="Pause" startIcon={<PauseIcon fontSize="inherit" />} handleClick={handlePause} />
-          <TimerButton title="Reset timer" ariaLabel="reset" buttonText="Reset" startIcon={<ReplayIcon fontSize="inherit" />} handleClick={handleStart} />
+          <TimerButton title="Start timer" ariaLabel="play" buttonText="Play" icon={<PlayArrowIcon fontSize="inherit" />} handleClick={handlePlay} />
+          <TimerButton title="Pause timer" ariaLabel="pause" buttonText="Pause" icon={<PauseIcon fontSize="inherit" />} handleClick={handlePause} />
+          <TimerButton title="Reset timer" ariaLabel="reset" buttonText="Reset" icon={<ReplayIcon fontSize="inherit" />} handleClick={handleStart} />
           
         </Typography>
       </Grid>
